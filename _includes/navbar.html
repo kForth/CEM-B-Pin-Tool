@@ -1,15 +1,14 @@
 <!-- Navbar -->
-<header class="p-3 text-bg-dark border-bottom">
+<header class="p-3 border-bottom">
   <div class="container-fluid">
     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-      <a href="{{ site.baseurl }}" class="d-flex align-items-center me-2 mb-2 mb-lg-0 text-white text-decoration-none">
+      <a href="{{ site.baseurl }}" class="d-flex align-items-center me-2 mb-2 mb-lg-0 text-body text-decoration-none">
         <i class="bi bi-gender-male fs-4 me-2"></i>
         <span class="fs-4">{{ site.title }}</span>
       </a>
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
       {%- for item in site.data.navbar %}
-        {%- assign active = item.href == page.permalink %}
-        <li><a href="{{ site.baseurl }}{{ item.href }}" class="nav-link px-2 text-{% if active %}secondary{% else %}white{% endif %}">{{ item.title }}</a></li>
+        <li><a href="{{ site.baseurl }}{{ item.href }}" class="nav-link px-2 text-{% if item.href == page.permalink %}secondary{% else %}body{% endif %}">{{ item.title }}</a></li>
       {%- endfor %}
       </ul>
   </div>
