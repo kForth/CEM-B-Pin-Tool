@@ -9,7 +9,7 @@
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
       {%- for item in site.data.navbar %}
         {%- assign active = item.href == page.permalink %}
-        <li><a href="{{ item.href }}" class="nav-link px-2 text-{% if active %}secondary{% else %}white{% endif %}">{{ item.title }}</a></li>
+        <li><a href="{{ site.baseurl }}{{ item.href }}" class="nav-link px-2 text-{% if active %}secondary{% else %}white{% endif %}">{{ item.title }}</a></li>
       {%- endfor %}
       </ul>
   </div>
