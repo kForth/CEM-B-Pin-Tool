@@ -1,0 +1,86 @@
+---
+layout: default
+permalink: /
+---
+<div class="container">
+    <div class="col-md-10 col-xl-8 col-xxl-6 mx-auto">
+        <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary">
+            <div class="mb-3">
+                <h1 class="h3 mb-3 fw-normal">CEM-B Pin Tool</h1>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="fileInput">Select CEM-B Firmware File:</label>
+                <input class="form-control" type="file" id="fileInput" accept=".bin" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="vin">VIN:</label>
+                <input class="form-control" type="text" id="vin" readonly />
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="hw">Hardware P/N:</label>
+                <input class="form-control" type="text" id="hw" readonly />
+            <div class="mb-3">
+                <label class="form-label" for="pin">PIN:</label>
+                <input class="form-control" type="text" id="pin" readonly />
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    const vinAddr = 0x800B; // VIN Number
+    const hwAddr = 0x404; // Hardware P/N
+    const pinAddrs = [0x4000, 0x6000]; // Pin should be at one of these addresses
+    const pinShuffles = { // Known pin shuffle orders
+        "08688513": [5, 2, 1, 4, 0, 3]
+        // 08645716 Not Shuffled
+        // 08645719 Not Shuffled
+        // 08688434 Not Shuffled
+        // 08688436 Not Shuffled
+        // 30657629 Not Shuffled
+        // 09494336 Not Shuffled
+        // 09494594 Not Shuffled
+        // 08645171 Not Shuffled
+        // 09452553 Not Shuffled
+        // 08645205 Not Shuffled
+        // 09452596 Not Shuffled
+        // 08602436 Not Shuffled
+        // 09469809 Not Shuffled
+        // 08645200 Not Shuffled
+    };
+
+    document.getElementById('fileInput').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const bytes = new Uint8Array(e.target.result);
+
+                const hw = Array.from(bytes).slice(hwAddr, hwAddr + 4).map(byte => byte.toString(16).padStart(2, '0').toUpperCase()).join('');
+                document.getElementById('hw').value = hw;
+
+                const vin = Array.from(bytes).slice(vinAddr, vinAddr + 17).map(byte => String.fromCharCode(byte).toString()).join('');
+                document.getElementById('vin').value = vin;
+
+                var pin = "PIN not found";
+                for(var addr of pinAddrs) {
+                    var _pin = Array.from(bytes).slice(addr, addr + 6);
+                    if (_pin.reduce((a, c) => a + c) != 0xFF * 6) {
+                        const shuffle = pinShuffles[hw];
+                        if(shuffle !== undefined) {
+                            _pin = _pin.map((_, i) => _pin[shuffle[i]]);
+                        }
+                        pin = _pin.map(byte => byte.toString(16).padStart(2, '0').toUpperCase()).join(' ');
+                        break;
+                    }
+                }
+                document.getElementById('pin').value = pin;
+            };
+            reader.readAsArrayBuffer(file);
+        } else {
+            document.getElementById('vin').value = '';
+            document.getElementById('hw').value = '';
+            document.getElementById('pin').value = '';
+        }
+    });
+</script>
