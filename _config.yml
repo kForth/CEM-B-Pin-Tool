@@ -1,6 +1,10 @@
 title: CEM-B Pin Tool
 email: kgoforth1503@gmail.com
-description: Easily find the security PIN for your Volvo CEM-B module.
+description: >
+  This is a web tool to find the security PIN for your early P2 Volvo CEM-B modules.
+  You must read the firmware from your CEM and upload it to the tool to see the PIN.
+
+  Once you have the PIN for your CEM, you can make configuration changes to the firmware.
 baseurl: "/CEM-B-Pin-Tool"
 url: "https://kforth.github.io/CEM-B-Pin-Tool"
 repo_url: "https://github.com/kForth/CEM-B-Pin-Tool"
