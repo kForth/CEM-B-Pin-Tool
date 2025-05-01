@@ -15,7 +15,7 @@ permalink: /files
       {%- for file in files %}
       <tr>
         <td>{{ file.name }}</td>
-        <td><a title="Download" href="{{ file.path }}"><i class="bi bi-cloud-download"></i></a></td>
+        <td><a title="Download" href="{{ site.baseurl}}{{ file.path }}"><i class="bi bi-cloud-download"></i></a></td>
       </tr>
       {%- endfor %}
     </tbody>
