@@ -9,9 +9,3 @@ baseurl: "/CEM-B-Pin-Tool"
 url: "https://kforth.github.io/CEM-B-Pin-Tool"
 repo_url: "https://github.com/kForth/CEM-B-Pin-Tool"
 kofi_id: Q5Q01020LV
-
-defaults:
-  - scope:
-      path: "assets/bins"
-    values:
-      bin: true

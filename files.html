@@ -11,7 +11,7 @@ permalink: /files
       </tr>
     </thead>
     <tbody>
-      {%- assign files = site.static_files | where: "bin", true %}
+      {%- assign files = site.static_files | where_exp: "item", "item.path contains '/assets/bins/'" %}
       {%- for file in files %}
       <tr>
         <td>{{ file.name }}</td>
