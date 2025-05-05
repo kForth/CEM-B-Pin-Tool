@@ -14,7 +14,7 @@ Once you have the PIN for your CEM, you can make configuration changes to the fi
 
 ## Firmware Files
 
-Please contribute your CEM firwamre files to the current list of files!
+Please contribute your CEM firmware files to the current list of files!
 
 Email me or submit a pull request adding your files to the `/assets/bins/` folder using the following name format:
 
